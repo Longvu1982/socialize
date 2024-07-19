@@ -8,7 +8,6 @@ export default function UnAuthLayout() {
   const { isLoaded } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location.pathname);
 
   React.useEffect(() => {
     if (isLoaded && !unAuthRoutes.includes(location.pathname))

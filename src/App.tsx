@@ -1,9 +1,5 @@
-// Import the layouts
 import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import RootLayout from "./layouts/root-layout";
-
-// Import the components
-import { useAuth } from "@clerk/clerk-react";
 import DashboardPage from "./routes/auth/dashboard";
 import InvoicesPage from "./routes/auth/dashboard.invoices";
 import ContactPage from "./routes/un-auth/contact";
@@ -11,10 +7,6 @@ import SignInPage from "./routes/un-auth/sign-in";
 import SignUpPage from "./routes/un-auth/sing-up";
 
 const App = () => {
-  const { isSignedIn } = useAuth();
-
-  console.log(isSignedIn);
-
   const router = createBrowserRouter([
     {
       path: "/",
