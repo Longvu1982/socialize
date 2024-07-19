@@ -1,20 +1,8 @@
-import { ClerkProvider } from "@clerk/clerk-react";
-import { Outlet, useNavigate } from "react-router-dom";
-
-const PUBLISHABLE_KEY = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
-
-if (!PUBLISHABLE_KEY) {
-  throw new Error("Missing Publishable Key");
-}
+import { useAuth } from "@clerk/clerk-react";
+import DashboardLayout from "./dashboard-layout";
+import UnAuthLayout from "./un-auth-layout";
 
 export default function RootLayout() {
-  const navigate = useNavigate();
-
-  return (
-    <ClerkProvider routerPush={(to) => navigate(to)} routerReplace={(to) => navigate(to, { replace: true })} publishableKey={PUBLISHABLE_KEY}>
-      <main className="min-h-screen flex items-center justify-center gradient-background">
-        <Outlet />
-      </main>
-    </ClerkProvider>
-  );
+  const { isSignedIn } = useAuth();
+  return isSignedIn ? <DashboardLayout /> : <UnAuthLayout />;
 }

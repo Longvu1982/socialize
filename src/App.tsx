@@ -1,51 +1,44 @@
 // Import the layouts
-import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
-import DashboardLayout from "./layouts/dashboard-layout";
+import { createBrowserRouter, Link, RouterProvider } from "react-router-dom";
 import RootLayout from "./layouts/root-layout";
 
 // Import the components
-import { RedirectToSignIn, SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
+import { useAuth } from "@clerk/clerk-react";
 import DashboardPage from "./routes/auth/dashboard";
 import InvoicesPage from "./routes/auth/dashboard.invoices";
 import ContactPage from "./routes/un-auth/contact";
 import SignInPage from "./routes/un-auth/sign-in";
 import SignUpPage from "./routes/un-auth/sing-up";
 
-const router = createBrowserRouter([
-  {
-    element: <RootLayout />,
-    children: [
-      {
-        path: "/",
-        element: (
-          <>
-            {/* <SignedIn>
-              <Navigate to="dashboard" />
-            </SignedIn> */}
-            <SignedOut>
-              <RedirectToSignIn />
-            </SignedOut>
-          </>
-        ),
-      },
-      { path: "/contact", element: <ContactPage /> },
-      { path: "/sign-in/*", element: <SignInPage /> },
-      { path: "/sign-up/*", element: <SignUpPage /> },
-      {
-        element: <DashboardLayout />,
-        path: "dashboard",
-        children: [
-          { path: "/dashboard", element: <DashboardPage /> },
-          { path: "/dashboard/invoices", element: <InvoicesPage /> },
-        ],
-      },
-    ],
-  },
-]);
-
 const App = () => {
+  const { isSignedIn } = useAuth();
+
+  console.log(isSignedIn);
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <RootLayout />,
+      children: [
+        { path: "/", element: <DashboardPage /> },
+        { path: "/dashboard/invoices", element: <InvoicesPage /> },
+        { path: "/contact", element: <ContactPage /> },
+        { path: "/sign-in/*", element: <SignInPage /> },
+        { path: "/sign-up/*", element: <SignUpPage /> },
+      ],
+    },
+    {
+      path: "*",
+      element: (
+        <div className="text-white h-screen gradient-background">
+          404 not found
+          <Link to="/">Go to Home Page</Link>
+        </div>
+      ),
+    },
+  ]);
+
   return <RouterProvider router={router} />;
 };
 
 export default App;
-
