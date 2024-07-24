@@ -11,7 +11,7 @@ export interface InputProps
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   ({ className, type, icon, iconClassName, ...props }, ref) => {
     return (
-      <div className="relative">
+      <div className={"relative " + className}>
         <input
           type={type}
           className={cn(

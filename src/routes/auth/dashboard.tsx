@@ -1,26 +1,44 @@
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { UserButton, useAuth } from "@clerk/clerk-react";
-import { Link } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { useUser } from "@clerk/clerk-react";
+import { IoImageOutline, IoVideocamOutline } from "react-icons/io5";
 
 export default function DashboardPage() {
-  const { signOut } = useAuth();
+  const { user } = useUser();
   return (
-    <>
-      <h1>Dashboard page</h1>
-      <p>This is a protected page.</p>
-
-      <UserButton />
-      <Button onClick={() => signOut({ redirectUrl: "/sign-in" })}>
-        Sign out
-      </Button>
-      <ul>
-        <li>
-          <Link to="/dashboard/invoices">Invoices</Link>
-        </li>
-        <li>
-          <Link to="/">Return to index</Link>
-        </li>
-      </ul>
-    </>
+    <div>
+      <div className="bg-white rounded-lg p-4">
+        <div className="flex items-start gap-3">
+          <Avatar className="size-10">
+            <AvatarImage src={user?.imageUrl} className="object-cover" />
+            <AvatarFallback>{user?.username?.charAt(0)}</AvatarFallback>
+          </Avatar>
+          <div className="flex-1">
+            <Input
+              className="w-full mb-4 border-none rounded-full bg-[#e9e9e99e] transition-all"
+              placeholder="Share something..."
+              // icon={<IoIosSearch size={16} />}
+            />
+            <div className="flex items-center gap-4">
+              <Button
+                variant="ghost"
+                className="p-0 h-fit flex gap-[6px] items-center hover:bg-transparent hover:opacity-75"
+              >
+                <IoImageOutline />
+                Image
+              </Button>
+              <Button
+                variant="ghost"
+                className="p-0 h-fit flex gap-[6px] items-center hover:bg-transparent hover:opacity-75"
+              >
+                <IoVideocamOutline size={16} />
+                Video
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
