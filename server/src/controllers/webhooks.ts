@@ -1,7 +1,7 @@
-import { createUser } from "db/users";
+import { createUser } from "../db/users";
 import express from "express";
 import { Webhook } from "svix";
-import { ClerkUserActionType, Event } from "types";
+import { ClerkUserActionType, Event } from "../types";
 
 export const clerkWebhooks = async (req: express.Request, res: express.Response) => {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
