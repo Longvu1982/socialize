@@ -5,9 +5,10 @@ export default function SignInPage() {
   return (
     <SignIn
       appearance={authButton}
-      path="/sign-in"
+      // path="/sign-in"
       signUpUrl="/sign-up"
       fallbackRedirectUrl="/"
+      routing="virtual"
     />
   );
 }
