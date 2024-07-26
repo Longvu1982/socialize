@@ -6,7 +6,7 @@ export interface Verification {
 export interface EmailAddress {
   email_address: string;
   id: string;
-  linked_to: any[];
+  linked_to: A[];
   object: string;
   verification: Verification;
 }
@@ -21,7 +21,7 @@ export interface UserData {
   birthday: string;
   created_at: number;
   email_addresses: EmailAddress[];
-  external_accounts: any[];
+  external_accounts: A[];
   external_id: string;
   first_name: string;
   gender: string;
@@ -31,18 +31,18 @@ export interface UserData {
   last_sign_in_at: number;
   object: string;
   password_enabled: boolean;
-  phone_numbers: any[];
+  phone_numbers: A[];
   primary_email_address_id: string;
   primary_phone_number_id: string | null;
   primary_web3_wallet_id: string | null;
-  private_metadata: Record<string, any>;
+  private_metadata: Record<string, A>;
   profile_image_url: string;
-  public_metadata: Record<string, any>;
+  public_metadata: Record<string, A>;
   two_factor_enabled: boolean;
-  unsafe_metadata: Record<string, any>;
+  unsafe_metadata: Record<string, A>;
   updated_at: number;
   username: string | null;
-  web3_wallets: any[];
+  web3_wallets: A[];
 }
 
 export interface Event {
