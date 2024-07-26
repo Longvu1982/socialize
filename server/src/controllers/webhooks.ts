@@ -5,6 +5,7 @@ export const clerkWebhooks = async (req: express.Request, res: express.Response)
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
+    console.log("no secret");
     throw new Error("Please add WEBHOOK_SECRET from Clerk Dashboard to .env");
   }
 
@@ -14,6 +15,7 @@ export const clerkWebhooks = async (req: express.Request, res: express.Response)
 
   // If there are no headers, error out
   if (!svix_id || !svix_timestamp || !svix_signature) {
+    console.log("svix error");
     return res.status(400).send("Error occurred -- no svix headers");
   }
 
@@ -24,11 +26,12 @@ export const clerkWebhooks = async (req: express.Request, res: express.Response)
 
   // Verify the payload with the headers
   try {
-    wh.verify(body, {
-      "svix-id": svix_id,
-      "svix-timestamp": svix_timestamp,
-      "svix-signature": svix_signature,
-    });
+  const verify = wh.verify(body, {
+    "svix-id": svix_id,
+    "svix-timestamp": svix_timestamp,
+    "svix-signature": svix_signature,
+  });
+    console.log(verify);
   } catch (err) {
     console.error("Error verifying webhook:", err);
     return res.status(400).send("Error occurred");
