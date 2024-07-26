@@ -1,7 +1,7 @@
-import { createUser, getUserByEmail, getUserById, updateUserById } from "../db/users";
 import express from "express";
-import { authentication, commonRes, random } from "../helper";
 import jwt from "jsonwebtoken";
+import { createUser, getUserByEmail } from "../db/users";
+import { authentication, commonRes, random } from "../helper";
 
 export const register = async (req: express.Request, res: express.Response) => {
   try {

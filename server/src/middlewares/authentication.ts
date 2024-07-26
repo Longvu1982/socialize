@@ -1,15 +1,15 @@
-import { getUserByEmail } from "../db/users";
 import express from "express";
-import { commonRes } from "../helper";
 import { jwtDecode } from "jwt-decode";
+import { getUserByEmail } from "../db/users";
+import { commonRes } from "../helper";
 
-const withoutCredentialRoutes = ["/auth"];
+const withoutCredentialRoutes = ["/auth", "/api/webhooks"];
 
 export const isAuthenticated = async (req: express.Request, res: express.Response, next: express.NextFunction) => {
   const pathName = req.url;
   if (withoutCredentialRoutes.some((item) => pathName.startsWith(item))) {
-      next();
-      return;
+    next();
+    return;
   }
 
   const credential = req.headers.authorization;
