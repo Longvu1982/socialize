@@ -1,27 +1,34 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useUser } from "@clerk/clerk-react";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
+import UserAvatar from "../common/user-avatar";
 import { Button } from "../ui/button";
 
 const LeftNav = () => {
   const { user } = useUser();
   return (
     <ScrollArea
-      className="col-span-1 bg-red max-h-[calc(100vh-83px)] scrollbar-hide rounded-lg p-4"
+      className="col-span-1 bg-red max-h-[calc(100vh-83px)] scrollbar-hide rounded-lg py-4"
       scrollHideDelay={0}
     >
       <div className="rounded-lg bg-white p-4">
-        <div className="h-16 relative rounded-lg mb-7">
-          <div className="bg-red-200 w-full h-full rounded-lg"></div>
+        <div className="h-20 relative rounded-lg mb-7">
+          <div className="w-full h-full rounded-lg overflow-hidden">
+            <img
+              src="https://picsum.photos/536/354"
+              alt="cover-picture"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div className="absolute left-1/2 bottom-0 -translate-x-1/2 translate-y-1/2 rounded-full bg-white size-14 flex items-center justify-center">
-            <Avatar className="size-12">
-              <AvatarImage src={user?.imageUrl} className="object-cover" />
-              <AvatarFallback>{user?.username?.charAt(0)}</AvatarFallback>
-            </Avatar>
+            <UserAvatar
+              src={user?.imageUrl}
+              fallback={user?.username?.charAt(0)}
+              className="size-12"
+            />
           </div>
         </div>
         <p className="text-center line-clamp-1 text-sm font-bold mb-1">
-          {user?.fullName}
+          {user?.username}
         </p>
         <p className="text-center text-sm opacity-45 font-semibold mb-5">
           {(user?.primaryEmailAddress?.emailAddress?.split("@")?.[0] ?? "") +

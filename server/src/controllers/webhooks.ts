@@ -1,9 +1,17 @@
-import { createUser } from "../db/users";
 import express from "express";
 import { Webhook } from "svix";
+import {
+  createUser,
+  deleteUser,
+  getUserByEmail,
+  updateUserStatusByUserId,
+} from "../db/users";
 import { ClerkUserActionType, Event } from "../types";
 
-export const clerkWebhooks = async (req: express.Request, res: express.Response) => {
+export const clerkWebhooks = async (
+  req: express.Request,
+  res: express.Response
+) => {
   const WEBHOOK_SECRET = process.env.WEBHOOK_SECRET;
 
   if (!WEBHOOK_SECRET) {
@@ -40,23 +48,46 @@ export const clerkWebhooks = async (req: express.Request, res: express.Response)
     return res.status(400).send("Error occurred");
   }
 
-  const { id, image_url, first_name, last_name, email_addresses, phone_numbers } = verify.data;
+  const { id, image_url, email_addresses, phone_numbers, username } =
+    verify.data;
   const eventType = verify.type;
   console.log(`Webhook with an ID of ${id} and type of ${eventType}`);
   console.log("Webhook body:", body);
 
   try {
     if (eventType === ClerkUserActionType.Create) {
+      const user = await getUserByEmail(email_addresses?.[0].email_address);
+      if (user) {
+        return res.status(400).send("Email already existed.");
+      }
       const newUser = await createUser({
-        fullName: `${first_name ?? ""} ${last_name ?? ""}`,
+        username,
         email: email_addresses?.[0].email_address,
         mobile: phone_numbers?.[0],
         image_url: image_url,
         user_id: id,
         isDelete: false,
       });
-      console.log(newUser);
-      res.status(200).send("");
+      console.log("New user", newUser);
+      return res.status(200).send("Create user successfully.");
+    }
+
+    if (eventType === ClerkUserActionType.Delete) {
+      const result = await deleteUser(id);
+      console.log("Deleting user", result);
+      if (result)
+        return res.status(200).send("Change active status successfully");
+    }
+
+    if (eventType === ClerkUserActionType.Update) {
+      const updatedUser = await updateUserStatusByUserId(id, {
+        username,
+        email: email_addresses?.[0].email_address,
+        mobile: phone_numbers?.[0],
+        image_url: image_url,
+      });
+      console.log("Updated user", updatedUser);
+      if (updatedUser) return res.status(200).send("Update user successfully");
     }
   } catch (err) {
     console.log("Error creating user", err);

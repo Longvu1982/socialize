@@ -1,6 +1,7 @@
 import logo from "@/assets/images/logo.png";
 import HeaderNav from "@/components/layouts/header-nav";
 import LeftNav from "@/components/layouts/left-nav";
+import LayoutLoading from "@/components/layouts/page-loading";
 import { Input } from "@/components/ui/input";
 import { UserButton, useAuth } from "@clerk/clerk-react";
 import * as React from "react";
@@ -18,7 +19,7 @@ export default function MainLayout() {
     }
   }, [isLoaded]);
 
-  if (!isLoaded) return "Loading...";
+  if (!isLoaded) return <LayoutLoading />;
 
   return (
     <div className="flex flex-col max-h-screen">
@@ -38,12 +39,14 @@ export default function MainLayout() {
         <UserButton />
       </nav>
       <div className="bg-gray-100">
-        <div className="container grid grid-cols-4 flex-1 mt-[83px] gap-4 min-h-[calc(100vh-83px)]">
-          <LeftNav />
-          <div className="col-span-2 py-4">
+        <div className="container grid grid-cols-4 flex-1 mt-[83px] gap-6 min-h-[calc(100vh-83px)]">
+          <div className="sticky top-[83px] col-span-1 self-start">
+            <LeftNav />
+          </div>
+          <div className="col-span-2 col-start-2 py-4">
             <Outlet />
           </div>
-          <div className="col-span-1"></div>
+          <div className="sticky top-[83px] col-span-1 self-start">hihi</div>
         </div>
       </div>
     </div>

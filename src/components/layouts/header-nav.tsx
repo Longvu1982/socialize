@@ -50,8 +50,8 @@ const HeaderNav = () => {
 
   return (
     <div className="flex items-center gap-3">
-      {navButtons.map((item) => (
-        <NavigationButton {...item} />
+      {navButtons.map(({ key, ...rest }) => (
+        <NavigationButton key={key} {...rest} />
       ))}
     </div>
   );

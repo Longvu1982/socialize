@@ -1,3 +1,4 @@
+import LayoutLoading from "@/components/layouts/page-loading";
 import { useAuth } from "@clerk/clerk-react";
 import * as React from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
@@ -16,7 +17,7 @@ export default function UnAuthLayout() {
 
   return (
     <main className="min-h-screen flex items-center justify-center gradient-background">
-      {isLoaded ? <Outlet /> : <span className="text-white">Loading...</span>}
+      {isLoaded ? <Outlet /> : <LayoutLoading />}
     </main>
   );
 }
