@@ -16,5 +16,5 @@ export const commonRes = (res: express.Response, information: Partial<CommonRes>
     ...information,
   };
   console.log(result);
-  return res.send(result);
+  return res.json(result);
 };

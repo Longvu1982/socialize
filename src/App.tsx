@@ -5,6 +5,7 @@ import InvoicesPage from "./routes/auth/dashboard.invoices";
 import ContactPage from "./routes/un-auth/contact";
 import SignInPage from "./routes/un-auth/sign-in";
 import SignUpPage from "./routes/un-auth/sing-up";
+import { Toaster } from "./components/ui/sonner";
 
 const App = () => {
   const router = createBrowserRouter([
@@ -30,7 +31,12 @@ const App = () => {
     },
   ]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <RouterProvider router={router} />
+      <Toaster duration={2000} />
+    </>
+  );
 };
 
 export default App;

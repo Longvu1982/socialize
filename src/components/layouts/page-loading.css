@@ -7,9 +7,13 @@
     opacity: 1;
   }
 }
+.loader {
+  width: 200px;
+  height: 200px;
+}
 
 .square {
-  background: #ddd;
+  background: #fff;
   width: 10px;
   height: 10px;
   position: absolute;
@@ -17,6 +21,10 @@
   left: 50%;
   margin-top: -5px;
   margin-left: -5px;
+}
+
+.loader-overlay .square {
+    background: hsl(304 52.2% 54.9%);
 }
 
 #sq1 {

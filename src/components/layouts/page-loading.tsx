@@ -1,8 +1,9 @@
+import { cn } from "@/lib/utils";
 import "./page-loading.css";
 
-const LayoutLoading = () => {
+const LayoutLoading = ({ isOverlay = false }: { isOverlay?: boolean }) => {
   return (
-    <div className="loader">
+    <div className={cn("loader", isOverlay && "loader-overlay")}>
       <div className="square" id="sq1"></div>
       <div className="square" id="sq2"></div>
       <div className="square" id="sq3"></div>
