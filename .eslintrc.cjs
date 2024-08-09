@@ -9,8 +9,14 @@ module.exports = {
     "react-hooks/exhaustive-deps": "off",
     "no-unsafe-argument ": "off",
     "@typescript-eslint/no-unsafe-call": "warn",
+    "no-unused-vars": "warn",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-unused-vars": "off",
   },
 };
+
+
+
 
 
 

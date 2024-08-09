@@ -15,8 +15,8 @@ export type ImageRefType = {
   filesContent: FileContent<string>[];
 };
 
-const ImageList = forwardRef<ImageRefType, A>((props, ref) => {
-  const { openFilePicker, filesContent, errors, clear, removeFileByIndex, removeFileByReference, plainFiles } = useImperativeFilePicker({
+const ImageList = forwardRef<ImageRefType, A>((_props, ref) => {
+  const { openFilePicker, filesContent, clear, removeFileByIndex, removeFileByReference, plainFiles } = useImperativeFilePicker({
     readAs: "DataURL",
     accept: "image/*,video/*",
     multiple: true,
