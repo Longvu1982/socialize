@@ -10,7 +10,6 @@ import cors from "cors";
 import dotenv from "dotenv";
 import routers from "./routers";
 import { isAuthenticated } from "./middlewares/authentication";
-import { createRouteHandler } from "uploadthing/express";
 import { uploadRouter } from "../src/helper/uploadthing";
 
 dotenv.config();
@@ -39,13 +38,5 @@ server.listen(PORT, () => {
 });
 
 app.use(isAuthenticated);
-
-app.use(
-  "/api/uploadthing",
-  createRouteHandler({
-    router: uploadRouter,
-    config: { uploadthingId: process.env.UPLOADTHING_SECRET, uploadthingSecret: process.env.UPLOADTHING_SECRET },
-  })
-);
 
 app.use("/", routers());
