@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 
 const BaseService = axios.create({
   timeout: 60000,
-  baseURL: "http://localhost:5001/api",
+  baseURL: import.meta.env.VITE_API_ENDPOINT,
 });
 
 // BaseService.interceptors.request.use(
